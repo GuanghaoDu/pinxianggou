@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlResolveMappings">
+    <file url="PROJECT" scope="{&quot;node&quot;:{  &quot;@negative&quot;:&quot;1&quot;,  &quot;group&quot;:{   &quot;@kind&quot;:&quot;root&quot;,   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;299dcb5e-511b-44fa-b441-becf11eb23b2&quot;    },    &quot;group&quot;:{     &quot;@kind&quot;:&quot;schema&quot;,     &quot;node&quot;:{      &quot;name&quot;:{       &quot;@qname&quot;:&quot;group_buy_market&quot;      }     }    }   },   &quot;node&quot;:{    &quot;name&quot;:{     &quot;@qname&quot;:&quot;f13091a0-7e39-40fc-9d99-737c8af89b33&quot;    }   }  } }}" />
+  </component>
+</project>
