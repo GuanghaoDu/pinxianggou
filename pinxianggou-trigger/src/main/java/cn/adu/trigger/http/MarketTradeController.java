@@ -21,9 +21,7 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Objects;
@@ -41,8 +39,9 @@ public class MarketTradeController implements IMarketTradeService {
     @Autowired
     private TraderOrderService traderOrderService;
 
+    @RequestMapping(value = "lock_market_pay_Order",method = RequestMethod.POST)
     @Override
-    public Response<LockMarketPayOrderResponseDTO> lockMarketPayOrder(LockMarketPayOrderRequestDTO lockMarketPayOrderRequsetDTO) {
+    public Response<LockMarketPayOrderResponseDTO> lockMarketPayOrder(@RequestBody LockMarketPayOrderRequestDTO lockMarketPayOrderRequsetDTO) {
 
        try {
 
@@ -99,7 +98,13 @@ public class MarketTradeController implements IMarketTradeService {
                    .goodsId(goodsId)
                    .activityId(activityId)
                    .build());
-
+           // 人群限定
+           if (!trialBalanceEntity.getIsVisible() || !trialBalanceEntity.getIsEnable()){
+               return Response.<LockMarketPayOrderResponseDTO>builder()
+                       .code(ResponseCode.E0007.getCode())
+                       .info(ResponseCode.E0007.getInfo())
+                       .build();
+           }
            GroupBuyActivityDiscountVO groupBuyActivityDiscountVO = trialBalanceEntity.getGroupBuyActivityDiscountVO();
 
            // 锁单
@@ -120,6 +125,7 @@ public class MarketTradeController implements IMarketTradeService {
                            .goodsName(trialBalanceEntity.getGoodsName())
                            .originalPrice(trialBalanceEntity.getOriginalPrice())
                            .deductionPrice(trialBalanceEntity.getDeductionPrice())
+                           .payPrice(trialBalanceEntity.getPayPrice())
                            .outTradeNo(outTradeNo)
                            .build());
 

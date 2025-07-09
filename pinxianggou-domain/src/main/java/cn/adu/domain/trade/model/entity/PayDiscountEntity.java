@@ -25,5 +25,6 @@ public class PayDiscountEntity {
 
     private BigDecimal deductionPrice;
 
+    private BigDecimal payPrice;
     private String outTradeNo;
 }

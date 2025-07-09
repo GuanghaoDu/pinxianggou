@@ -15,6 +15,7 @@
         <result column="deduction_Price" property="deductionPrice"/>
         <result column="outTradeNo" property="outTradeNo"/>
         <result column="status" property="status"/>
+        <result column="biz_Id" property="bizId"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
@@ -22,11 +23,11 @@
 insert into group_buy_order_list(id, user_id, team_id, order_id,
                                  activity_id, start_time, end_time,
                                  goods_id, source, channel, original_price,
-                                 deduction_price, status, out_trade_no, create_time, update_time)
+                                 deduction_price, status, biz_id, out_trade_no, create_time, update_time)
 values (#{id}, #{userId}, #{teamId}, #{orderId},
         #{activityId}, #{startTime}, #{endTime},
         #{goodsId}, #{source}, #{channel}, #{originalPrice},
-        #{deductionPrice}, #{status}, #{outTradeNo}, #{createTime}, #{updateTime})
+        #{deductionPrice}, #{status}, #{bizId},#{outTradeNo}, now(), now())
 
     </insert>
     <select id="queryGroupBuyOrderRecordByOutTradeNo"
@@ -37,6 +38,10 @@ values (#{id}, #{userId}, #{teamId}, #{orderId},
         where out_trade_no=#{outTradeNo} and user_id=#{userId} and status=0
 
 
+    </select>
+    <select id="queryOrderCountByActivityId" resultType="cn.adu.infrastructure.dao.po.GroupBuyOrderList" resultMap="dataMap">
+        select count(id)from group_buy_order_list
+        where user_id=#{userId} and activity_id=#{activityId}
     </select>
 
 

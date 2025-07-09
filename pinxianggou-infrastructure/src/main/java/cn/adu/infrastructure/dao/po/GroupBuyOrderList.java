@@ -38,6 +38,8 @@ public class GroupBuyOrderList {
 
     private Integer status;
 
+    private String bizId;
+
     private Date createTime;
 
     private Date updateTime;
